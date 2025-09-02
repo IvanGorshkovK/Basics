@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class ContactAccountingSystem {
     static Scanner scanner = new Scanner(System.in);
-    static boolean running = true; // Создание булевой перемнной для цикла while
+
 
     static int maxValue = 10; // Создание переменной,устанавливающая максимальное значение для массиво
     static int counter = 0; // Создание переменной, для счетчика кол-ва пользователей
@@ -33,7 +33,8 @@ public class ContactAccountingSystem {
                     addContact();
                     break;
                 case 2:
-
+                    getContacts();
+                    break;
 
             }
         }while(choice != 5);
@@ -56,6 +57,13 @@ public class ContactAccountingSystem {
 
     }
 
+    // Метод получения всех контактов
+    public static void getContacts() {
+        System.out.println("Список контактов");
+        for (int i = 0; i < maxValue; i++) {
+            System.out.println("Имя: " + names[i] + " Номер телефона: " + phoneNumbers[i]);
+        }
+    }
 
 
 }
