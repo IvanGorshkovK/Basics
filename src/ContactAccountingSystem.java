@@ -35,6 +35,9 @@ public class ContactAccountingSystem {
                 case 2:
                     getContacts();
                     break;
+                case 3:
+                    searchContact();
+                    break;
 
             }
         }while(choice != 5);
@@ -62,6 +65,24 @@ public class ContactAccountingSystem {
         System.out.println("Список контактов");
         for (int i = 0; i < maxValue; i++) {
             System.out.println("Имя: " + names[i] + " Номер телефона: " + phoneNumbers[i]);
+        }
+    }
+
+    //Метод поиска контакта
+    public static void searchContact(){
+        System.out.println("Введите имя для поиска");
+        String searchName = scanner.nextLine();
+        int flag = 0; // Создаем флаг, для условия if если контакт не найден
+
+        for (int i = 0; i <maxValue; i++){
+            if(names[i] != null && names[i].equalsIgnoreCase(searchName)){
+                System.out.println("Имя: " + names[i] + " Номер телефона: " + phoneNumbers[i]);
+                flag++;
+            }
+
+        }
+        if(flag == 0){
+            System.out.println("Контакт не найден");
         }
     }
 
