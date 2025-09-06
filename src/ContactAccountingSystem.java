@@ -38,7 +38,14 @@ public class ContactAccountingSystem {
                 case 3:
                     searchContact();
                     break;
-
+                case 4:
+                    deleteContact();
+                    break;
+                case 5:
+                    System.out.println("До свидания! ");
+                default:
+                    System.out.println("Укажите верный пункт меню от 1 до 5");
+                    break;
             }
         }while(choice != 5);
 
@@ -49,11 +56,32 @@ public class ContactAccountingSystem {
         if(counter <= maxValue) {
             System.out.println("Введите имя");// Считывание данных от пользователя
             String name = scanner.nextLine();
+
+            //Проверка на корректный ввод имени
+            if(!name.isEmpty()){
+                names[counter] = name;
+            }else {
+                System.out.println("Вы ввели пустую строку!");
+                return;
+            }
+
             System.out.println("Введите номер телефона");
+
             String phoneNumber = scanner.nextLine();
-            names[counter] = name;
-            phoneNumbers[counter] = phoneNumber;
-            counter++;
+
+            if(!phoneNumber.isEmpty()){
+                phoneNumbers[counter] = phoneNumber;
+            }else {
+                System.out.println("Вы ввели пустую строку");
+            }
+
+
+
+            if(!phoneNumber.isEmpty() && !name.isEmpty()){
+                System.out.println("Контакт успешно добавлен! ");
+                counter++;
+            }
+
         }else{
             System.out.println("Память переполнена, для добавления нужно удалить один из контактов!");
         }
@@ -64,7 +92,9 @@ public class ContactAccountingSystem {
     public static void getContacts() {
         System.out.println("Список контактов");
         for (int i = 0; i < maxValue; i++) {
-            System.out.println("Имя: " + names[i] + " Номер телефона: " + phoneNumbers[i]);
+            if(names[i] != null){
+                System.out.println(i+1 + ". Имя: " + names[i] + " Номер телефона: " + phoneNumbers[i]);
+            }
         }
     }
 
@@ -82,8 +112,40 @@ public class ContactAccountingSystem {
 
         }
         if(flag == 0){
-            System.out.println("Контакт не найден");
+            System.out.println("Контакт с таким именем не найден!");
         }
+    }
+    // Метод для удаления контакта
+    public static void deleteContact(){
+        getContacts();
+
+
+        System.out.print("Введите имя контакта, который хотите удалить: ");
+        String contact = scanner.nextLine();
+        int flag = 0;
+
+        for(int i = 0; i < maxValue; i++){
+            if(names[i] != null && names[i].equalsIgnoreCase(contact)){ //поиск по массиву элемента, который нужно удалить
+                for(int j = i; j < maxValue - 1; j++){
+                    names[j] = names[j+1];              //смещение влево
+                    phoneNumbers[j] = phoneNumbers[j+1];
+
+                    flag++;
+                    if(flag > 0){
+                        //обнуление
+                        names[maxValue-1]= null;
+                        phoneNumbers[maxValue-1]= null;
+                        counter--;
+                    }
+                }
+                System.out.println("Контакт успешно удален!");
+            }
+        }
+
+        if(flag == 0){
+            System.out.println("Контакт с таким именем не найден!");
+        }
+
     }
 
 
